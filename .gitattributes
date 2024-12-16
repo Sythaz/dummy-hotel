@@ -1,0 +1,21 @@
+# Setel Dart sebagai bahasa utama di GitHub
+*.dart linguist-language=Dart
+
+# Tandai file Android dan iOS sebagai "vendored" (nggak dihitung di statistik bahasa)
+android/* linguist-vendored
+ios/* linguist-vendored
+
+# Tandai file-file platform sebagai "vendored" (nggak dihitung di statistik bahasa)
+*.cpp linguist-vendored    # File C++ 
+*.h linguist-vendored      # File header C/C++
+*.c linguist-vendored      # File C
+*.swift linguist-vendored  # File Swift (iOS)
+*.html linguist-vendored   # File HTML
+*.cmake linguist-vendored  # File konfigurasi CMake
+CMakeLists.txt linguist-vendored # File build CMake
+
+# Tandai file lain yang nggak termasuk kode utama
+*.lock linguist-vendored   # File lock dependency
+*.yaml linguist-vendored   # File konfigurasi (contoh: pubspec.yaml)
+*.gradle linguist-vendored # File Gradle (Android)
+*.pbxproj linguist-vendored # File Xcode (iOS)
