@@ -1,0 +1,5 @@
+Install node.js*
+Install npm tools dan hubungkan firebase dengan project, jika terdapat error maka close dan buka lagi vscode (https://firebase.google.com/docs/flutter/setup?hl=en&authuser=0&platform=android)
+Tambahkan import packages dan Firebase.InitializedApp di dalam main (diatas runApp)
+Install firebaseCore melalui pubspec.yaml atau terminal
+Tambahkan permission connectivity network kedalam androidManifest.xml diatas <application> (https://developer.android.com/develop/connectivity/network-ops/connecting?hl=id)

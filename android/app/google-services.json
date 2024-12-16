@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16208143090",
+    "project_id": "bwa-hotelio-cc737",
+    "storage_bucket": "bwa-hotelio-cc737.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16208143090:android:12da62517f32661514666b",
+        "android_client_info": {
+          "package_name": "com.sythapp.hotelio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCttEoaxoSoRQQ3L07qV-qIwXa6fndKLuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
