@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:syth_hotel/page/signin_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  // debugPaintSizeEnabled = true; // Menampilkan batas layout
   WidgetsFlutterBinding
       .ensureInitialized(); // Menjaga komponen bekerja dengan baik
   await Firebase.initializeApp(
