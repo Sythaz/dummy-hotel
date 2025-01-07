@@ -12,4 +12,7 @@ class AppAsset {
   static const iconOffice = 'asset/icon_office.png';
   static const iconStore = 'asset/icon_store.png';
   static const iconWifi = 'asset/icon_wifi.png';
+
+  static const hotelio1 =
+      'https://drive.google.com/uc?export=view&id=12c7MViFJv48lNl54X9YltA6V6iNGe4D5';
 }

@@ -8,12 +8,14 @@ class CNearby extends GetxController {
 
   String get category => _category.value;
 
+  // List kategori hotel yg akan digunakan untuk filter di Nearby Page
   List<String> get categories => [
         'All Place',
         'Industrial',
         'Village',
       ];
 
+  // Setter untuk mengubah value obs _category menjadi salah satu categories hotel
   set category(n) {
     _category.value = n;
     // Karena memilih menggunakan update(), jadi widget pembungkusnya harus menggunakan GetBuilder() dan bukan Obx()
@@ -22,6 +24,8 @@ class CNearby extends GetxController {
 
   // Instansiasi penyimpanan list data hotel
   final _listHotel = <Hotel>[].obs;
+  
+  List<Hotel> get listHotel => _listHotel.value;
 
   // Memanggil list data hotel dari sumber data (hotel_source)
   getListHotel() async {

@@ -14,7 +14,7 @@ import 'package:syth_hotel/page/signin_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  // debugPaintSizeEnabled = true; // Menampilkan batas layout
+  debugPaintSizeEnabled = true; // Menampilkan batas layout
   WidgetsFlutterBinding
       .ensureInitialized(); // Menjaga komponen bekerja dengan baik
   await Firebase.initializeApp(
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               // Validasi 1: Jika data user masih kosong
               // Validasi 2: Jika user melakukan login dan akun salah/tidak ada
-              if (snapshot.data == null || snapshot.data!.id == null) {
+              if (!snapshot.hasData || snapshot.data?.id == null) {
                 return IntroPage();
               } else {
                 return HomePage();
