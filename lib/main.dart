@@ -8,13 +8,15 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/config/app_route.dart';
 import 'package:syth_hotel/config/session.dart';
+import 'package:syth_hotel/model/user.dart';
+import 'package:syth_hotel/page/detail_page.dart';
 import 'package:syth_hotel/page/home_page.dart';
 import 'package:syth_hotel/page/intro_page.dart';
 import 'package:syth_hotel/page/signin_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  debugPaintSizeEnabled = true; // Menampilkan batas layout
+  // debugPaintSizeEnabled = true; // Menampilkan batas layout
   WidgetsFlutterBinding
       .ensureInitialized(); // Menjaga komponen bekerja dengan baik
   await Firebase.initializeApp(
@@ -52,10 +54,10 @@ class MyApp extends StatelessWidget {
         '/': (context) {
           return FutureBuilder(
             future: Session.getUser(),
-            builder: (context, snapshot) {
+            builder: (context, AsyncSnapshot<User> snapshot) {
               // Validasi 1: Jika data user masih kosong
               // Validasi 2: Jika user melakukan login dan akun salah/tidak ada
-              if (!snapshot.hasData || snapshot.data?.id == null) {
+              if (snapshot.data == null || snapshot.data!.id == null) {
                 return IntroPage();
               } else {
                 return HomePage();
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
         AppRoute.intro: (context) => IntroPage(),
         AppRoute.home: (context) => HomePage(),
         AppRoute.signin: (context) => SigninPage(),
-        AppRoute.detail: (context) => IntroPage(),
+        AppRoute.detail: (context) => DetailPage(),
         AppRoute.checkout: (context) => IntroPage(),
         AppRoute.checkoutSuccess: (context) => IntroPage(),
         AppRoute.detailBooking: (context) => IntroPage(),

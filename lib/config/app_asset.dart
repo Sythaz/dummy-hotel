@@ -8,7 +8,7 @@ class AppAsset {
   static const iconPayment = 'asset/icon_payment.png';
   static const iconReward = 'asset/icon_reward.png';
   static const iconSearch = 'asset/icon_search.png';
-  static const iconCoffe = 'asset/icon_coffe.png';
+  static const iconCoffe = 'asset/icon_coffee.png';
   static const iconOffice = 'asset/icon_office.png';
   static const iconStore = 'asset/icon_store.png';
   static const iconWifi = 'asset/icon_wifi.png';

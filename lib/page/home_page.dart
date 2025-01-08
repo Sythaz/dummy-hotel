@@ -34,7 +34,6 @@ class HomePage extends StatelessWidget {
           elevation: 8,
           child: Container(
             color: Colors.white,
-            padding: const EdgeInsets.only(top: 8, bottom: 6),
             child: BottomNavigationBar(
               currentIndex: cHome.indexPage,
               onTap: (value) => cHome.indexPage = value,

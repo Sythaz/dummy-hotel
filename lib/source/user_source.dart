@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:syth_hotel/config/session.dart';
 import '../model/user.dart';
 
 class UserSource {
@@ -22,6 +23,9 @@ class UserSource {
       String uid = credential.user!.uid;
       // Uid didapatkan untuk proses menyimpan data user
       User user = await getWhereId(uid);
+
+      // Menyimpan data user ke dalam Session (GetX Put)
+      Session.saveUser(user);
     } on auth.FirebaseAuthException catch (e) {
       response['success'] = false;
 
