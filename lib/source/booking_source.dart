@@ -15,4 +15,20 @@ class BookingSource {
     }
     return null;
   }
+
+  // Sebuah fungsi untuk menambahkan data booking kedalam firebase
+  static Future<bool> addBooking(String userId, Booking booking) async {
+    var ref = FirebaseFirestore.instance
+        .collection('User')
+        .doc(userId)
+        .collection('Booking');
+    // Setelah instansiasi alamat collection, kita dapat menambahkan data menggunakan add
+    // Sebelum itu, ubah data booking (model) menjadi Json (map)
+    var docRef = await ref.add(booking.toJson());
+
+    // Karena id dari kumpulan data yang baru saja ditambahkan tidak ada (kecuali lihat langsung di firebase)
+    // Maka kita dapat menambahkan id tersebut menggunakan update agar data tersebut dapat diakses atau di ubah-ubah
+    docRef.update({'id': docRef.id});
+    return true;
+  }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:syth_hotel/config/app_asset.dart';
 import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/config/app_format.dart';
+import 'package:syth_hotel/config/app_route.dart';
 import 'package:syth_hotel/controller/c_user.dart';
 import 'package:syth_hotel/widget/button_custom.dart';
 
@@ -192,7 +193,9 @@ class DetailPage extends StatelessWidget {
           ),
           ButtonCustom(
             label: 'Booking Now',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, AppRoute.checkout, arguments: hotel);
+            },
           ),
         ],
       ),

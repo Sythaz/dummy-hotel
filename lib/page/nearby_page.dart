@@ -77,7 +77,7 @@ class NearbyPage extends StatelessWidget {
                             child: AspectRatio(
                               aspectRatio: 16 / 9,
                               child: Image.network(
-                                AppAsset.hotelio1,
+                                hotel.cover,
                                 fit: BoxFit.cover,
                               ),
                             ),

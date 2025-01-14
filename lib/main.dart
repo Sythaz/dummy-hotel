@@ -9,11 +9,13 @@ import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/config/app_route.dart';
 import 'package:syth_hotel/config/session.dart';
 import 'package:syth_hotel/model/user.dart';
+import 'package:syth_hotel/page/checkout_page.dart';
 import 'package:syth_hotel/page/detail_page.dart';
 import 'package:syth_hotel/page/home_page.dart';
 import 'package:syth_hotel/page/intro_page.dart';
 import 'package:syth_hotel/page/signin_page.dart';
 import 'firebase_options.dart';
+import 'page/checkout_success_page.dart';
 
 Future<void> main() async {
   // debugPaintSizeEnabled = true; // Menampilkan batas layout
@@ -69,8 +71,8 @@ class MyApp extends StatelessWidget {
         AppRoute.home: (context) => HomePage(),
         AppRoute.signin: (context) => SigninPage(),
         AppRoute.detail: (context) => DetailPage(),
-        AppRoute.checkout: (context) => IntroPage(),
-        AppRoute.checkoutSuccess: (context) => IntroPage(),
+        AppRoute.checkout: (context) => CheckoutPage(),
+        AppRoute.checkoutSuccess: (context) => CheckoutSuccessPage(),
         AppRoute.detailBooking: (context) => IntroPage(),
       },
     );
