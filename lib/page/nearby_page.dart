@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -18,13 +16,13 @@ class NearbyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         header(context),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         searchField(),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         categories(),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         hotels(),
       ],
     );
@@ -38,11 +36,11 @@ class NearbyPage extends StatelessWidget {
             ? _.listHotel
             : _.listHotel.where((e) => e.category == _.category).toList();
         return list.isEmpty
-            ? Center(child: Text('Data not found'))
+            ? const Center(child: Text('Data not found'))
             : ListView.builder(
                 itemCount: list.length,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   // Mengambil data hotel berdasarkan index
                   Hotel hotel = list[index];
@@ -69,7 +67,7 @@ class NearbyPage extends StatelessWidget {
                       child: Column(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20),
                             ),
@@ -103,10 +101,10 @@ class NearbyPage extends StatelessWidget {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      SizedBox(height: 4),
+                                      const SizedBox(height: 4),
                                       Row(
                                         children: [
-                                          Text(
+                                          const Text(
                                             'Start from ',
                                             style: TextStyle(
                                                 color: Colors.grey,
@@ -116,12 +114,12 @@ class NearbyPage extends StatelessWidget {
                                           Text(
                                             AppFormat.currency(
                                                 hotel.price.toDouble()),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: AppColor.secondary,
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Text(
+                                          const Text(
                                             '/night',
                                             style: TextStyle(
                                                 color: Colors.grey,
@@ -140,7 +138,7 @@ class NearbyPage extends StatelessWidget {
                                   itemCount: 5,
                                   allowHalfRating: true,
                                   direction: Axis.horizontal,
-                                  itemBuilder: (context, _) => Icon(
+                                  itemBuilder: (context, _) => const Icon(
                                     Icons.star,
                                     color: AppColor.starActive,
                                   ),
@@ -196,7 +194,7 @@ class NearbyPage extends StatelessWidget {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         category,
                         style: Theme.of(context)
@@ -233,8 +231,8 @@ class NearbyPage extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
                 hintText: 'Search by name or city here',
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                contentPadding: EdgeInsets.symmetric(
+                hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 8,
                 ),
@@ -249,7 +247,7 @@ class NearbyPage extends StatelessWidget {
               child: InkWell(
                 onTap: () {},
                 borderRadius: BorderRadius.circular(45),
-                child: SizedBox(
+                child: const SizedBox(
                   height: 45,
                   width: 45,
                   child: Center(
@@ -293,9 +291,13 @@ class NearbyPage extends StatelessWidget {
                     .titleLarge!
                     .copyWith(fontWeight: FontWeight.w900),
               ),
-              Text(
-                '100 hotels',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+              Obx(
+                () {
+                  return Text(
+                    '${cNearby.listHotel.length} hotels',
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  );
+                },
               ),
             ],
           )

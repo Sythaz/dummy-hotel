@@ -3,6 +3,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:syth_hotel/config/app_color.dart';
@@ -10,6 +11,7 @@ import 'package:syth_hotel/config/app_route.dart';
 import 'package:syth_hotel/config/session.dart';
 import 'package:syth_hotel/model/user.dart';
 import 'package:syth_hotel/page/checkout_page.dart';
+import 'package:syth_hotel/page/detail_booking_page.dart';
 import 'package:syth_hotel/page/detail_page.dart';
 import 'package:syth_hotel/page/home_page.dart';
 import 'package:syth_hotel/page/intro_page.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
 
       // Flutter menyediakan beberapa template tema seperti: textTheme, scaffoldBackgroundColor, primaryColor, dan colorScheme, dll
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
         AppRoute.detail: (context) => DetailPage(),
         AppRoute.checkout: (context) => CheckoutPage(),
         AppRoute.checkoutSuccess: (context) => CheckoutSuccessPage(),
-        AppRoute.detailBooking: (context) => IntroPage(),
+        AppRoute.detailBooking: (context) => DetailBookingPage(),
       },
     );
   }

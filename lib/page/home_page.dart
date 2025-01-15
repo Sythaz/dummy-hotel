@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:syth_hotel/config/app_asset.dart';
 import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/controller/c_home.dart';
+import 'package:syth_hotel/page/history_page.dart';
 import 'package:syth_hotel/page/nearby_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         if (cHome.indexPage == 1) {
-          return const Center(child: Text('History'));
+          return HistoryPage();
         } else if (cHome.indexPage == 2) {
           return const Center(child: Text('Payment'));
         } else if (cHome.indexPage == 3) {

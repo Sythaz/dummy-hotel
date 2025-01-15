@@ -31,4 +31,15 @@ class BookingSource {
     docRef.update({'id': docRef.id});
     return true;
   }
+
+  // Sebuah fungsi untuk mengambil data booking user dari firebase
+  static Future<List<Booking>> getHistory(String id) async {
+    var result = await FirebaseFirestore.instance
+        .collection('User')
+        .doc(id)
+        .collection('Booking')
+        .get();
+    // Mengubah data JSON dari Firebase menjadi objek Booking (model)
+    return result.docs.map((e) => Booking.fromJson(e.data())).toList();
+  }
 }
