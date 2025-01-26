@@ -15,6 +15,7 @@ class NearbyPage extends StatelessWidget {
   NearbyPage({super.key});
   final cNearby = Get.put(CNearby());
   final cUser = Get.put(CUser());
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +230,10 @@ class NearbyPage extends StatelessWidget {
               color: Colors.white,
             ),
             child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                cNearby.searchHotel(value);
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
