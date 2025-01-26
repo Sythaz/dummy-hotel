@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:syth_hotel/config/app_asset.dart';
 import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/config/app_format.dart';
@@ -36,131 +37,232 @@ class NearbyPage extends StatelessWidget {
   GetBuilder<CNearby> hotels() {
     return GetBuilder<CNearby>(
       builder: (_) {
-        // Menyimpan data list hotel berdasarkan kategori yang dipilih
-        List<Hotel> list = _.category == 'All Place'
-            ? _.listHotel
-            : _.listHotel.where((e) => e.category == _.category).toList();
-        return list.isEmpty
-            ? const Center(child: Text('Data not found'))
-            : ListView.builder(
-                itemCount: list.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  // Mengambil data hotel berdasarkan index
-                  Hotel hotel = list[index];
-                  // Mengirimkan data hotel yang dipilih ke halaman detail hotel
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoute.detail,
-                        arguments: hotel,
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                        16,
-                        index == 0 ? 0 : 8,
-                        16,
-                        index == list.length - 1 ? 16 : 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            // Menggunakan AspectRatio untuk mengatur rasio aspek gambar
-                            child: AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Image.network(
-                                hotel.cover,
-                                fit: BoxFit.cover,
+        // Saat terjadi loading pengambilan data
+        if (_.isLoading == true) {
+          return shimmer();
+        }
+
+        // Jika terjadi error saat pengambilan data
+        if (_.isError.value == true) {
+          return const Center(
+            child: Text(
+              'Terjadi kesalahan saat mengambil data!',
+            ),
+          );
+        } else {
+          // Menyimpan data list hotel berdasarkan kategori yang dipilih
+          List<Hotel> list = _.category == 'All Place'
+              ? _.listHotel
+              : _.listHotel.where((e) => e.category == _.category).toList();
+
+          return list.isEmpty
+              ? const Center(child: Text('Data hotel sedang kosong!'))
+              : ListView.builder(
+                  itemCount: list.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    // Mengambil data hotel berdasarkan index
+                    Hotel hotel = list[index];
+                    // Mengirimkan data hotel yang dipilih ke halaman detail hotel
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoute.detail,
+                          arguments: hotel,
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(
+                          16,
+                          index == 0 ? 0 : 8,
+                          16,
+                          index == list.length - 1 ? 16 : 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              // Menggunakan AspectRatio untuk mengatur rasio aspek gambar
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: Image.network(
+                                  hotel.cover,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              children: [
-                                // Menggunakan Expanded untuk membuat nama hotel dan harga mengambil ruang yang tersisa
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        hotel.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                        // Jika teks terlalu panjang (maks 1 baris text) maka akan diabaikan dan ditampilkan dengan ...
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Start from ',
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 13),
-                                          ),
-                                          // Format currency digunakan disini
-                                          Text(
-                                            AppFormat.currency(
-                                                hotel.price.toDouble()),
-                                            style: const TextStyle(
-                                                color: AppColor.secondary,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const Text(
-                                            '/night',
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: [
+                                  // Menggunakan Expanded untuk membuat nama hotel dan harga mengambil ruang yang tersisa
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          hotel.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                          // Jika teks terlalu panjang (maks 1 baris text) maka akan diabaikan dan ditampilkan dengan ...
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Start from ',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 13),
+                                            ),
+                                            // Format currency digunakan disini
+                                            Text(
+                                              AppFormat.currency(
+                                                  hotel.price.toDouble()),
+                                              style: const TextStyle(
+                                                  color: AppColor.secondary,
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const Text(
+                                              '/night',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                // Sebuah package futter_rating_bar untuk menambahkan widget rating
-                                RatingBar.builder(
-                                  initialRating: hotel.rate,
-                                  minRating: 0,
-                                  itemCount: 5,
-                                  allowHalfRating: true,
-                                  direction: Axis.horizontal,
-                                  itemBuilder: (context, _) => const Icon(
-                                    Icons.star,
-                                    color: AppColor.starActive,
+                                  // Sebuah package futter_rating_bar untuk menambahkan widget rating
+                                  RatingBar.builder(
+                                    initialRating: hotel.rate,
+                                    minRating: 0,
+                                    itemCount: 5,
+                                    allowHalfRating: true,
+                                    direction: Axis.horizontal,
+                                    itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: AppColor.starActive,
+                                    ),
+                                    unratedColor: AppColor.starInactive,
+                                    itemSize: 18,
+                                    ignoreGestures: true,
+                                    onRatingUpdate: (rating) {},
                                   ),
-                                  unratedColor: AppColor.starInactive,
-                                  itemSize: 18,
-                                  ignoreGestures: true,
-                                  onRatingUpdate: (rating) {},
-                                ),
-                              ],
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+        }
+      },
+    );
+  }
+
+  ListView shimmer() {
+    return ListView.builder(
+      itemCount: 3,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.fromLTRB(
+            16,
+            index == 0 ? 0 : 8,
+            16,
+            index == 2 ? 16 : 8,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                // Menggunakan AspectRatio untuk mengatur rasio aspek gambar
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(color: Colors.white),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    // Menggunakan Expanded untuk membuat nama hotel dan harga mengambil ruang yang tersisa
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              margin: EdgeInsets.only(right: 16),
+                              width: double.infinity,
+                              height: 16,
+                              color: Colors.white,
                             ),
-                          )
+                          ),
+                          const SizedBox(height: 4),
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: 80,
+                              height: 14,
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  );
-                },
-              );
+                    // Sebuah package futter_rating_bar untuk menambahkan widget rating
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        width: 80,
+                        height: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
       },
     );
   }

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:syth_hotel/model/hotel.dart';
 import 'package:syth_hotel/source/hotel_source.dart';
@@ -5,6 +8,9 @@ import 'package:syth_hotel/source/hotel_source.dart';
 // Menggunakan getter dan setter yang sudah disediakan oleh GetX
 class CNearby extends GetxController {
   // --------------------- Filter berdasarkan kategori -------------------------
+
+  var isLoading = true.obs;
+  var isError = false.obs;
 
   final _category = 'All Place'.obs;
 
@@ -38,10 +44,19 @@ class CNearby extends GetxController {
   // Memanggil list data hotel dari sumber data (hotel_source)
   getListHotel() async {
     // Dipisah karena untuk memisahkan logika bisnis (pengambilan data) dengan controller
-    _listHotel.value = await HotelSource.getHotel();
-    _applyFilters();
+    try {
+      isLoading.value = true;
 
-    update();
+      _listHotel.value = await HotelSource.getHotel();
+      _applyFilters();
+    } catch (e) {
+      // Masalah tidak terduga
+      isError.value = true;
+    } finally {
+      isLoading.value = false;
+
+      update();
+    }
   }
 
   // Fungsi untuk menerapkan filter berdasarkan kategori dan pencarian
