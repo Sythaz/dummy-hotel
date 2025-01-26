@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../config/app_asset.dart';
 import '../config/app_color.dart';
 import '../config/app_format.dart';
-import '../config/app_route.dart';
 import '../controller/c_user.dart';
 import '../model/booking.dart';
-import '../model/hotel.dart';
-import '../source/booking_source.dart';
-import '../widget/button_custom.dart';
 
 class DetailBookingPage extends StatelessWidget {
   DetailBookingPage({super.key});
@@ -35,7 +30,7 @@ class DetailBookingPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           // Sebuah method untuk memanggil widget-widget untuk tiap bagian (header, roomDetails, paymentMethod)
           header(booking, context),
@@ -52,7 +47,7 @@ class DetailBookingPage extends StatelessWidget {
 
   Container paymentMethod(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -113,7 +108,7 @@ class DetailBookingPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -198,7 +193,7 @@ class DetailBookingPage extends StatelessWidget {
               width: 90,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,7 +206,7 @@ class DetailBookingPage extends StatelessWidget {
                 ),
                 Text(
                   booking.location,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w300),
                 )
               ],

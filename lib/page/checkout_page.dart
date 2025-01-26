@@ -35,7 +35,7 @@ class CheckoutPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           // Sebuah method untuk memanggil widget-widget untuk tiap bagian (header, roomDetails, paymentMethod)
           header(hotel, context),
@@ -84,7 +84,7 @@ class CheckoutPage extends StatelessWidget {
 
   Container paymentMethod(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -145,7 +145,7 @@ class CheckoutPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -210,7 +210,7 @@ class CheckoutPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           ClipRRect(
@@ -222,7 +222,7 @@ class CheckoutPage extends StatelessWidget {
               width: 90,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,7 +235,7 @@ class CheckoutPage extends StatelessWidget {
                 ),
                 Text(
                   hotel.location,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w300),
                 )
               ],

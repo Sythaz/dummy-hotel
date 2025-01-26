@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -48,7 +45,7 @@ class MyApp extends StatelessWidget {
         // Background Scaffold tiap halaman
         scaffoldBackgroundColor: AppColor.backgroundScaffold,
         primaryColor: AppColor.primary, // Warna utama
-        colorScheme: ColorScheme.light(
+        colorScheme: const ColorScheme.light(
           // Warna tema terang, jika gelap bisa diganti dengan ColorScheme.dark
           primary: AppColor.primary,
           secondary: AppColor.secondary,
@@ -62,19 +59,19 @@ class MyApp extends StatelessWidget {
               // Validasi 1: Jika data user masih kosong
               // Validasi 2: Jika user melakukan login dan akun salah/tidak ada
               if (snapshot.data == null || snapshot.data!.id == null) {
-                return IntroPage();
+                return const IntroPage();
               } else {
                 return HomePage();
               }
             },
           );
         },
-        AppRoute.intro: (context) => IntroPage(),
+        AppRoute.intro: (context) => const IntroPage(),
         AppRoute.home: (context) => HomePage(),
         AppRoute.signin: (context) => SigninPage(),
         AppRoute.detail: (context) => DetailPage(),
         AppRoute.checkout: (context) => CheckoutPage(),
-        AppRoute.checkoutSuccess: (context) => CheckoutSuccessPage(),
+        AppRoute.checkoutSuccess: (context) => const CheckoutSuccessPage(),
         AppRoute.detailBooking: (context) => DetailBookingPage(),
       },
     );

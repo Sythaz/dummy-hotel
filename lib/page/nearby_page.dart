@@ -5,12 +5,16 @@ import 'package:syth_hotel/config/app_asset.dart';
 import 'package:syth_hotel/config/app_color.dart';
 import 'package:syth_hotel/config/app_format.dart';
 import 'package:syth_hotel/config/app_route.dart';
+import 'package:syth_hotel/config/session.dart';
 import 'package:syth_hotel/controller/c_nearby.dart';
 import 'package:syth_hotel/model/hotel.dart';
+
+import '../controller/c_user.dart';
 
 class NearbyPage extends StatelessWidget {
   NearbyPage({super.key});
   final cNearby = Get.put(CNearby());
+  final cUser = Get.put(CUser());
 
   @override
   Widget build(BuildContext context) {
@@ -272,14 +276,49 @@ class NearbyPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              AppAsset.profile,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  showMenu(
+                    context: context,
+                    position: const RelativeRect.fromLTRB(16, 16, 0, 0),
+                    items: [
+                      const PopupMenuItem(
+                        value: 'logout',
+                        child: Text('Logout'),
+                      ),
+                    ],
+                  ).then(
+                    (value) {
+                      if (value == 'logout') {
+                        Session.clearUser();
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoute.signin,
+                        );
+                      }
+                    },
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    AppAsset.profilKu,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                'Hi, ${cUser.data.name}',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
